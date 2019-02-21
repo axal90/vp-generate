@@ -1,4 +1,4 @@
-#!/usr/bin/env/ node
+#!/usr/bin/env node
 const { prompt } = require('enquirer');
 const fs = require('fs');
 const colors = require('ansi-colors');
