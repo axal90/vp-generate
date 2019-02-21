@@ -38,30 +38,42 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var enquirer_1 = require("enquirer");
 var fs_1 = require("fs");
 var move_files_1 = require("./move-files");
+var path_1 = require("path");
 var Generator = /** @class */ (function () {
     function Generator() {
         var _this = this;
-        this.getChoices = function () { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, fs_1.promises.readdir(__dirname + "/templates")];
-                    case 1: return [2 /*return*/, _a.sent()];
+        this.setTemplates = function () { return __awaiter(_this, void 0, void 0, function () {
+            var _a, error_1;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        _b.trys.push([0, 2, , 3]);
+                        _a = this;
+                        return [4 /*yield*/, fs_1.promises.readdir(path_1.resolve(__dirname, '../templates'))];
+                    case 1:
+                        _a.templates = _b.sent();
+                        return [3 /*break*/, 3];
+                    case 2:
+                        error_1 = _b.sent();
+                        console.error(error_1);
+                        return [3 /*break*/, 3];
+                    case 3: return [2 /*return*/];
                 }
             });
         }); };
         this.setup = function () { return __awaiter(_this, void 0, void 0, function () {
-            var choices, answers;
+            var answers;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getChoices()];
+                    case 0: return [4 /*yield*/, this.setTemplates()];
                     case 1:
-                        choices = _a.sent();
+                        _a.sent();
                         return [4 /*yield*/, enquirer_1.prompt([
                                 {
                                     type: 'select',
                                     name: 'projectChoice',
                                     message: 'What project template would you like to generate?',
-                                    choices: choices
+                                    choices: this.templates
                                 },
                                 {
                                     type: 'input',
@@ -83,6 +95,7 @@ var Generator = /** @class */ (function () {
             });
         }); };
         this.setup();
+        this.templates = [];
     }
     return Generator;
 }());
